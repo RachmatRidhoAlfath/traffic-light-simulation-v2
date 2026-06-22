@@ -6,7 +6,12 @@ from traffic_light import TrafficLight
 from vehicle import Vehicle
 
 traffic_light = TrafficLight()
-car = Vehicle(50, 235)
+vehicles =[
+    Vehicle(50,235),
+    Vehicle(-80,235),
+    Vehicle(-210,235),
+    Vehicle(-340,235)
+]
 
 pygame.init()
 
@@ -27,7 +32,18 @@ while running:
 
     traffic_light.update()
 
-    car.update(traffic_light, STOP_LINE)
+    for i, vehicle in enumerate(vehicles):
+
+        vehicle_ahead = None
+
+        if i > 0:
+            vehicle_ahead = vehicles[i - 1]
+
+        vehicle.update(
+            traffic_light,
+            STOP_LINE,
+            vehicle_ahead
+        )
 
     screen.fill(WHITE)
     
@@ -35,7 +51,8 @@ while running:
     
     traffic_light.draw(screen)
 
-    car.draw(screen)
+    for vehicle in vehicles:
+        vehicle.draw(screen)
 
     pygame.display.flip()
 
