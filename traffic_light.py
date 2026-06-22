@@ -54,6 +54,6 @@ class TrafficLight:
         font = pygame.font.SysFont(None, 36)
 
         text = font.render(
-            str(self.get_remaining_time()),True,(255,255,255)
+            str(self.get_remaining_time()),True,(0,0,0)
         )
         screen.blit(text, (870,60))
