@@ -14,19 +14,21 @@ class TrafficLight:
         self.remaining_time = self.red_time
 
     def update(self):
-        elapsed = time.time() - self.last_change
+
+        current_time = time.time()
+        elapsed = current_time - self.last_change
 
         if self.state == "RED" and elapsed >= self.red_time:
             self.state = "GREEN"
-            self.last_change = time.time()
+            self.last_change = current_time
 
         elif self.state == "GREEN" and elapsed >= self.green_time:
             self.state = "YELLOW"
-            self.last_change = time.time()
+            self.last_change = current_time
 
         elif self.state == "YELLOW" and elapsed >= self.yellow_time:
             self.state = "RED"
-            self.last_change = time.time()
+            self.last_change = current_time
     
     def get_remaining_time(self): 
         elapsed = time.time() -self.last_change
@@ -57,3 +59,13 @@ class TrafficLight:
             str(self.get_remaining_time()),True,(0,0,0)
         )
         screen.blit(text, (870,60))
+
+        font = pygame.font.SysFont(None, 32)
+
+        status_text = font.render(
+        self.state,
+        True,
+        (255,255,255)
+        )
+
+        screen.blit(status_text, (845, 20))

@@ -22,6 +22,9 @@ clock = pygame.time.Clock()
 
 running = True
 
+spawn_timer = 0
+spawn_delay = 180
+
 while running:
 
     clock.tick(FPS)
@@ -31,6 +34,15 @@ while running:
             running = False
 
     traffic_light.update()
+    spawn_timer += 1
+
+    if spawn_timer >= spawn_delay:
+
+        vehicles.append(
+            Vehicle(-100, 235)
+        )
+
+        spawn_timer = 0
 
     for i, vehicle in enumerate(vehicles):
 
@@ -45,6 +57,10 @@ while running:
             vehicle_ahead
         )
 
+    vehicles = [
+        car for car in vehicles
+        if car.x < WIDTH + 100
+    ]   
     screen.fill(WHITE)
     
     draw_road(screen)
